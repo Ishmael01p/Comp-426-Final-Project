@@ -6,6 +6,9 @@ Goal: The objective is to create a React + Vite app that can showcase a range of
     - "cd react-app" # if needed
     - "npm install" # install dependencies
     - "npm run dev"
+### Testing Authentication with Node JS :
+    Run the following command in terminal:
+    - "node server.js"
 ### Potential Project Idea 
 - Job Search Site
     - Using an api to pull job posting that match the preferences of the user
