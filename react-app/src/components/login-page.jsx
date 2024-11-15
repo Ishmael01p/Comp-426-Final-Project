@@ -3,16 +3,15 @@ import { useState } from "react";
 import PropTypes from 'prop-types';
 
 async function loginUser(credentials) {
-  const response = await fetch('http://localhost:8080/login',{
+  return fetch('http://localhost:8080/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(credentials)
   })
-  return response.json()
-}
-
+    .then(data => data.json())
+ }
 export default function LoginPage({ setToken }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')

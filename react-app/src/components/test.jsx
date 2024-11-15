@@ -1,8 +1,7 @@
-
-export default function HomePage() {
+export default function Test() {
     return (
         <>
-            <h1>Application</h1>
+            <h1>Tester HP</h1>
             <div>Home Page!</div>
         </>
     )

@@ -1,27 +1,45 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from "react-router-dom" // from react router dom library
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import HomePage from './components/home-page';
+import LoginPage from './components/login-page';
+import ErrorPage from './components/error-page';
+import useToken from './components/useToken';
 import './styles/index.css'
-import App from './app.jsx'
-import ErrorPage from './components/error-page.jsx'
-import LoginPage from './components/login-page.jsx'
 
+function Main() {
+  
+  const { token, setToken } = useToken();
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: "/login",
-    element: <LoginPage />
+  // Check if the token exists; if not, show the login page
+  if (!token) {
+    return <LoginPage setToken={setToken} />;
   }
-])
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <HomePage/>
+    },
+    {
+      path: "/dashboard",
+      element: <HomePage />,
+      errorElement: <ErrorPage />
+    },
+    // {
+    //   path: "/login",
+    //   element: <LoginPage /> // Use this if you need nested routes
+    // }
+  ]);
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router}/>
-  </StrictMode>,
-)
+  return <RouterProvider router={router} />;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <Main />
+  </React.StrictMode>
+);
+
+export default Main;
