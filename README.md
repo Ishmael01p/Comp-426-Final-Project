@@ -5,9 +5,9 @@ Goal: The objective is to create a React + Vite app that can showcase a range of
     Run the following command in terminal:
     - "cd react-app" # if needed
     - "npm install" # install dependencies
-    - "npm run dev"
-    Run the following command in a seperate terminal simultaneously:
     - "node server.js"
+    Run the following command in a seperate terminal simultaneously:
+    - "npm run dev"
 ### Potential Project Idea 
 - Job Search Site
     - Using an api to pull job posting that match the preferences of the user
@@ -15,6 +15,10 @@ Goal: The objective is to create a React + Vite app that can showcase a range of
 - May need one for authentication
 - Job Post API:
     - https://free-apis.github.io/#/categories
+### Notes
+- Currently the form of authentication is very basic that does not preform any real authenication 
+    - currently using a static token
+- The goal is to generate a unique token (JWT) for user sessions
 ### FrameWorks and Libraries Used
 - React
     - https://react.dev/
@@ -22,3 +26,4 @@ Goal: The objective is to create a React + Vite app that can showcase a range of
     - https://vite.dev/ 
 - react-router-dom - Used for all of the routing within the app
     - https://reactrouter.com/en/main/start/tutorial
+  
