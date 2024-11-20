@@ -1,20 +1,29 @@
 #root {
   /* max-width: 1280px; */
   margin: 0 auto;
-  padding-top: 5rem;
+  padding-top: 3rem;
   text-align: center;
+  position: relative;
 }
 
 .navbar {
+  display: flex;
   position: fixed;
+  flex-direction: row; /* Arrange items horizontally */
   top: 0;
   width: 100%;
-  background-color: #333; /* or another color */
+  background-color: #333; 
   color: white;
-  padding: 1rem;
-  text-align: center;
+  text-align: center; /* Center-aligns text inside each item */
   z-index: 1000; /* ensures it stays on top */
+  align-items: center;
+  height: 2.5cm;
+  padding-left: 1cm;
 }
+
+/* .navbar nav {
+  font-size: smaller;
+} */
 
 .logo {
   height: 6em;
@@ -27,21 +36,6 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
 }
 
 .card {

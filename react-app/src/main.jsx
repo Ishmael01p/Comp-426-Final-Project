@@ -19,17 +19,14 @@ function Main() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage/>
+      element: <HomePage/>,
+      errorElement: <ErrorPage/>
     },
     {
       path: "/dashboard",
       element: <HomePage />,
       errorElement: <ErrorPage />
     },
-    // {
-    //   path: "/login",
-    //   element: <LoginPage /> // Use this if you need nested routes
-    // }
   ]);
 
   return <RouterProvider router={router} />;

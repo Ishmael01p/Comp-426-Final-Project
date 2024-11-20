@@ -1,9 +1,12 @@
+// import { useState } from "react"
+import "../styles/app.css"
+import JobSearch from "./searchbar"
 
 export default function HomePage() {
+    // const [count, setCount] = useState(0)
     return (
-        <>
-            <h1>Application</h1>
-            <div>Home Page!</div>
+        <><nav className="navbar"><h3>Linkedin  Job Board</h3></nav>
+        <JobSearch/>
         </>
     )
 }
