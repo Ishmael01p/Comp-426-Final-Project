@@ -137,7 +137,7 @@ const JobSearch = () => {
 
       <section style={{ width: '75%', padding: '1rem' }}>
         <h2>Job Results</h2>
-        <div>Some of the locations you may be looking for are not some of the preset options if you want to get a  location that we do not provide go to Linkedin Jobs tab and type in a location and press enter once you in the url copy the number after the &quot;geoid&ldquo; and paste it into the location box</div>
+        <div>Some of the locations you may be looking for are not some of the preset options. If you want to get a location that we do not provide go to the Linkedin Jobs tab and type in a location and press enter. In the url copy the number after the &quot;geoid&ldquo; and paste it into the location box found at the top of search Jobs</div>
         {/* Render job results here */}
       </section>
     </div>
