@@ -18,7 +18,9 @@ Goal: The objective is to create a React + Vite app that can showcase a range of
 ### Notes
 - Currently the form of authentication is very basic that does not preform any real authenication 
     - currently using a static token
-- The goal is to generate a unique token (JWT) for user sessions
+    - The goal is to generate a unique token (JWT) for user sessions
+- The majority of the search bar has been implemented
+    - A text entry field needs to be added, then job results needs to be implemented 
 ### FrameWorks and Libraries Used
 - React
     - https://react.dev/
