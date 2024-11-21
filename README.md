@@ -14,6 +14,7 @@ Goal: The objective is to create a React + Vite app that can showcase a range of
 ### APIs
 - May need one for authentication
 - Job Post API:
+    - https://rapidapi.com/rockapis-rockapis-default/api/linkedin-data-api/playground/apiendpoint_d6ee76ac-f060-468e-9e18-685375ea2004 
     - https://free-apis.github.io/#/categories
 ### Notes
 - Currently the form of authentication is very basic that does not preform any real authenication 
