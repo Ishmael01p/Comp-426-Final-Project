@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import JobPost from './job';
 
 const JobSearch = () => {
-  const [customInput, setCustomInput] = useState('')
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [keywords, setKeywords] = useState(''); // Separate state for keywords
+  const [location, setLocation] = useState(''); // Separate state for location
   const [dropdowns, setDropdowns] = useState({
     datePosted: false,
     salary: false,
@@ -34,8 +38,10 @@ const JobSearch = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const url = new URL('https://linkedin-data-api.p.rapidapi.com/search-jobs');
-    const params = { ...filters, sort: 'mostRelevant', start: '0' };
+    const params = { keywords, location, ...filters, sort: 'mostRelevant', start: '0' };
 
     Object.keys(params).forEach((key) => {
       if (params[key]) url.searchParams.append(key, params[key]);
@@ -44,7 +50,7 @@ const JobSearch = () => {
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '5fb873a6bdmsh5ee11973e246e9ep113992jsncc19fc0e3a08',
+        'x-rapidapi-key': '8029f2bb09msha2b39da22aa0d64p1a9894jsn1f655c05d860', // Replace with your actual API key
         'x-rapidapi-host': 'linkedin-data-api.p.rapidapi.com',
       },
     };
@@ -52,18 +58,25 @@ const JobSearch = () => {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result.jobs.slice(0, 10)); // Debugging log for jobs
+      const jobsArray = result.data || []; // Extract jobs array from API response
+      setJobs(jobsArray);
+      console.log('API Request URL:', url.toString());
+      console.log('API Request Options:', options);
+      console.log(jobsArray);
     } catch (error) {
       console.error('Error fetching jobs:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div style={{ marginTop: '2.75rem', display: 'flex' }}>
+      {/* Sidebar for filters */}
       <aside
         style={{
           width: '25%',
-          padding: '0', // Remove padding
+          padding: '0',
           background: '#f4f4f4',
           borderRight: '1px solid gray',
           position: 'sticky',
@@ -75,17 +88,17 @@ const JobSearch = () => {
           <h3 style={{ margin: '0', padding: '1rem', background: 'gray', color: 'white' }}>
             Search Jobs
           </h3>
-          {/* {Open Section Keyword} */}
+          {/* Keywords Input */}
           <div style={{ margin: '1rem 0' }}>
-            <label htmlFor="customInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Keywords
+            <label htmlFor="keywordsInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Keyword
             </label>
             <input
-              id="customInput"
+              id="keywordsInput"
               type="text"
-              value={customInput}
-              onChange={(e) => setCustomInput(e.target.value)}
-              placeholder="Type anything..."
+              value={keywords}
+              onChange={(e) => setKeywords(e.target.value)}
+              placeholder="Enter keywords..."
               style={{
                 width: '100%',
                 padding: '0.5rem',
@@ -93,16 +106,17 @@ const JobSearch = () => {
               }}
             />
           </div>
+          {/* Location Input */}
           <div style={{ margin: '1rem 0' }}>
-            <label htmlFor="customInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
+            <label htmlFor="locationInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
               Location
             </label>
             <input
-              id="customInput"
+              id="locationInput"
               type="text"
-              value={customInput}
-              onChange={(e) => setCustomInput(e.target.value)}
-              placeholder="Type anything..."
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Enter location..."
               style={{
                 width: '100%',
                 padding: '0.5rem',
@@ -110,8 +124,7 @@ const JobSearch = () => {
               }}
             />
           </div>
-
-          {/* Dropdowns */}
+          {/* Filters */}
           {[
             { key: 'datePosted', label: 'Date Posted', options: ['anyTime', 'pastMonth', 'pastWeek', 'past24Hours'] },
             { key: 'salary', label: 'Salary', options: ['40k+', '60k+', '80k+', '100k+', '120k+', '140k+', '160k+', '180k+', '200k+'] },
@@ -126,7 +139,6 @@ const JobSearch = () => {
                   cursor: 'pointer',
                   border: '1px solid #ccc',
                   padding: '0.5rem',
-                  margin: '0', // Remove space
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
@@ -136,7 +148,7 @@ const JobSearch = () => {
                 {label} <span>&#9660;</span>
               </div>
               {dropdowns[key] && (
-                <div style={{ border: '1px solid #ccc', margin: '0', padding: '0.5rem', background: '#f9f9f9' }}>
+                <div style={{ border: '1px solid #ccc', padding: '0.5rem', background: '#f9f9f9' }}>
                   {options.map((option) => (
                     <div key={option}>
                       <label>
@@ -153,7 +165,7 @@ const JobSearch = () => {
               )}
             </div>
           ))}
-
+          {/* Submit Button */}
           <button
             type="submit"
             style={{
@@ -163,7 +175,7 @@ const JobSearch = () => {
               color: 'white',
               border: 'none',
               cursor: 'pointer',
-              margin: 10
+              margin: 10,
             }}
           >
             Search
@@ -171,14 +183,33 @@ const JobSearch = () => {
         </form>
       </aside>
 
+      {/* Main Content Area */}
       <section style={{ width: '75%', padding: '1rem' }}>
         <h2>Job Results</h2>
-        <div>Some of the locations you may be looking for are not some of the preset options.
-          If you want to get a location that we do not provide go to the Linkedin Jobs tab and
-          type in a location and press enter. In the url copy the number after the &quot;geoid&ldquo;
-          and paste it into the location box found at the top of search Jobs</div>
-        {/* Render job results here */}
+        {loading ? (
+          <p>Loading...</p>
+        ) : jobs.length > 0 ? (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', // Responsive columns
+              gap: '1rem', // Space between grid items
+            }}
+          >
+            {jobs.map((job, index) => (
+              <JobPost
+                key={index}
+                title={job.title || 'No Title'}
+                company={job.company || { name: 'Unknown Company' }}
+                location={job.location || 'Location Not Specified'}
+              />
+            ))}
+          </div>
+        ) : (
+          <p>No jobs found.</p>
+        )}
       </section>
+
     </div>
   );
 };
