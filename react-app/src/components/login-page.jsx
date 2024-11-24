@@ -11,7 +11,7 @@ async function loginUser(credentials) {
     body: JSON.stringify(credentials)
   })
     .then(data => data.json())
- }
+}
 export default function LoginPage({ setToken }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -26,21 +26,26 @@ export default function LoginPage({ setToken }) {
   }
 
   return (
+    <>
+    <div>
+      <nav className="navbar">Login Page</nav>
+    </div>
     <div className="login-wrapper">
       <form onSubmit={handleSubmit}>
         <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUsername(e.target.value)}/>
+          <p>Username:</p>
+          <input type="text" onChange={e => setUsername(e.target.value)} />
         </label>
         <label>
-          <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)}/>
+          <p>Password:</p>
+          <input type="password" onChange={e => setPassword(e.target.value)} />
         </label>
         <div>
           <button type="submit">Submit</button>
         </div>
       </form>
     </div>
+    </>
   )
 }
 

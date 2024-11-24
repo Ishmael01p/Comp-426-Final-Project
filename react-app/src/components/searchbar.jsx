@@ -1,6 +1,7 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 
 const JobSearch = () => {
+  const [customInput, setCustomInput] = useState('')
   const [dropdowns, setDropdowns] = useState({
     datePosted: false,
     salary: false,
@@ -74,6 +75,41 @@ const JobSearch = () => {
           <h3 style={{ margin: '0', padding: '1rem', background: 'gray', color: 'white' }}>
             Search Jobs
           </h3>
+          {/* {Open Section Keyword} */}
+          <div style={{ margin: '1rem 0' }}>
+            <label htmlFor="customInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Keywords
+            </label>
+            <input
+              id="customInput"
+              type="text"
+              value={customInput}
+              onChange={(e) => setCustomInput(e.target.value)}
+              placeholder="Type anything..."
+              style={{
+                width: '100%',
+                padding: '0.5rem',
+                border: '1px solid #ccc',
+              }}
+            />
+          </div>
+          <div style={{ margin: '1rem 0' }}>
+            <label htmlFor="customInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              Location
+            </label>
+            <input
+              id="customInput"
+              type="text"
+              value={customInput}
+              onChange={(e) => setCustomInput(e.target.value)}
+              placeholder="Type anything..."
+              style={{
+                width: '100%',
+                padding: '0.5rem',
+                border: '1px solid #ccc',
+              }}
+            />
+          </div>
 
           {/* Dropdowns */}
           {[
@@ -137,7 +173,10 @@ const JobSearch = () => {
 
       <section style={{ width: '75%', padding: '1rem' }}>
         <h2>Job Results</h2>
-        <div>Some of the locations you may be looking for are not some of the preset options. If you want to get a location that we do not provide go to the Linkedin Jobs tab and type in a location and press enter. In the url copy the number after the &quot;geoid&ldquo; and paste it into the location box found at the top of search Jobs</div>
+        <div>Some of the locations you may be looking for are not some of the preset options.
+          If you want to get a location that we do not provide go to the Linkedin Jobs tab and
+          type in a location and press enter. In the url copy the number after the &quot;geoid&ldquo;
+          and paste it into the location box found at the top of search Jobs</div>
         {/* Render job results here */}
       </section>
     </div>
