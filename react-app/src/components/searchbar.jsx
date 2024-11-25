@@ -5,7 +5,7 @@ const JobSearch = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [keywords, setKeywords] = useState(''); // Separate state for keywords
-  const [location, setLocation] = useState(''); // Separate state for location
+  const [locationId, setLocationId] = useState(''); // Separate state for locationId
   const [dropdowns, setDropdowns] = useState({
     datePosted: false,
     salary: false,
@@ -41,7 +41,7 @@ const JobSearch = () => {
     setLoading(true);
 
     const url = new URL('https://linkedin-data-api.p.rapidapi.com/search-jobs');
-    const params = { keywords, location, ...filters, sort: 'mostRelevant', start: '0' };
+    const params = { keywords, locationId, ...filters, sort: 'mostRelevant', start: '0' };
 
     Object.keys(params).forEach((key) => {
       if (params[key]) url.searchParams.append(key, params[key]);
@@ -89,7 +89,7 @@ const JobSearch = () => {
             Search Jobs
           </h3>
           {/* Keywords Input */}
-          <div style={{ margin: '1rem 0' }}>
+          <div style={{ margin: '1rem 0', display: 'inline-block', width: '75%', textAlign: 'center' }}>
             <label htmlFor="keywordsInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
               Keyword
             </label>
@@ -106,17 +106,17 @@ const JobSearch = () => {
               }}
             />
           </div>
-          {/* Location Input */}
-          <div style={{ margin: '1rem 0' }}>
-            <label htmlFor="locationInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              Location
+          {/* locationId Input */}
+          <div style={{ margin: '1rem 0', display: 'inline-block', width: '75%'}}>
+            <label htmlFor="locationIdInput" style={{ display: 'block', marginBottom: '0.5rem' }}>
+              locationId
             </label>
             <input
-              id="locationInput"
+              id="locationIdInput"
               type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Enter location..."
+              value={locationId}
+              onChange={(e) => setLocationId(e.target.value)}
+              placeholder="Enter GEOId..."
               style={{
                 width: '100%',
                 padding: '0.5rem',
@@ -186,6 +186,7 @@ const JobSearch = () => {
       {/* Main Content Area */}
       <section style={{ width: '75%', padding: '1rem' }}>
         <h2>Job Results</h2>
+        <p>In order to search for a specific locations pull the GeoID from <a href={'https://www.linkedin.com/'}>Linkedin</a></p>
         {loading ? (
           <p>Loading...</p>
         ) : jobs.length > 0 ? (
@@ -201,7 +202,8 @@ const JobSearch = () => {
                 key={index}
                 title={job.title || 'No Title'}
                 company={job.company || { name: 'Unknown Company' }}
-                location={job.location || 'Location Not Specified'}
+                location={job.location || 'location Not Specified'}
+                url={job.url}
               />
             ))}
           </div>
