@@ -41,7 +41,7 @@ const JobSearch = () => {
     setLoading(true);
 
     const url = new URL('https://linkedin-data-api.p.rapidapi.com/search-jobs');
-    const params = { keywords, locationId, ...filters, sort: 'mostRelevant', start: '0' };
+    const params = { keywords, locationId, ...filters, sort: 'mostRelevant' };
 
     Object.keys(params).forEach((key) => {
       if (params[key]) url.searchParams.append(key, params[key]);
