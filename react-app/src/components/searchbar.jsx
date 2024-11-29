@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import JobPost from './job';
 
+// const myAPI = import.meta.env.VITE_API_KEY
+
 const JobSearch = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
