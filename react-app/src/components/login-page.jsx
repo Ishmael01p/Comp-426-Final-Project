@@ -24,6 +24,7 @@ function LoginPage({ setAccessType }) {
 
       setMessage('Login successful!');
       setAccessType('user'); 
+      navigate('/home');
     } catch (error) {
       setMessage(`Error: ${error.message}`);
     }
