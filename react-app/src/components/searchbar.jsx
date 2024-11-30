@@ -52,7 +52,7 @@ const JobSearch = () => {
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '8029f2bb09msha2b39da22aa0d64p1a9894jsn1f655c05d860', // Replace with your actual API key
+        'x-rapidapi-key': '8029f2bb09msha2b39da22aa0d64p1a9894jsn1f655c05d860', 
         'x-rapidapi-host': 'linkedin-data-api.p.rapidapi.com',
       },
     };
@@ -60,7 +60,7 @@ const JobSearch = () => {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      const jobsArray = result.data || []; // Extract jobs array from API response
+      const jobsArray = result.data || []; 
       setJobs(jobsArray);
       console.log('API Request URL:', url.toString());
       console.log('API Request Options:', options);
@@ -195,8 +195,8 @@ const JobSearch = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', // Responsive columns
-              gap: '1rem', // Space between grid items
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+              gap: '1rem', 
             }}
           >
             {jobs.map((job, index) => (

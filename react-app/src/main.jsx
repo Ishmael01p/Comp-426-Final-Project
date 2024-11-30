@@ -1,30 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './components/home-page';
 import LoginPage from './components/login-page';
 import ErrorPage from './components/error-page';
-import useToken from './components/useToken';
 import './styles/index.css'
 
 function Main() {
-  
-  const { token, setToken } = useToken();
-
-  // Check if the token exists; if not, show the login page
-  if (!token) {
-    return <LoginPage setToken={setToken} />;
-  }
+  const [accessType, setAccessType] = useState(null);
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage/>,
+      element: <LoginPage setAccessType={setAccessType} />,
       errorElement: <ErrorPage/>
     },
     {
-      path: "/dashboard",
-      element: <HomePage />,
+      path: "/home",
+      element: <HomePage accessType={accessType}/>,
       errorElement: <ErrorPage />
     },
   ]);

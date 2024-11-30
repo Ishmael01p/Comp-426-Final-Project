@@ -15,10 +15,10 @@ const connectDB = async () => {
     const passwordDB = mongoose.createConnection(uri2);
     console.log('Connected to passwordDB');
 
-    return { usernameDB, passwordDB }; // Return both connections for use in models
+    return { usernameDB, passwordDB }; 
   } catch (err) {
     console.error('Error connecting to databases:', err.message);
-    process.exit(1); // Exit process on failure
+    process.exit(1); 
   }
 };
 

@@ -1,54 +1,92 @@
 import "../styles/login-page.css"
 import { useState } from "react";
 import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 
-async function loginUser(credentials) {
-  return fetch('http://localhost:8080/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json())
-}
-export default function LoginPage({ setToken }) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+function LoginPage({ setAccessType }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
+  const navigate = useNavigate()
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const token = await loginUser({
-      username,
-      password
-    });
-    setToken(token);
-  }
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+
+      setMessage('Login successful!');
+      setAccessType('user'); 
+    } catch (error) {
+      setMessage(`Error: ${error.message}`);
+    }
+  };
+
+  const handleRegister = async () => {
+    console.log("got here")
+    try {
+      const response = await fetch('http://localhost:8080/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+
+      setMessage('Registration successful! Please log in.');
+      setIsRegistering(false);
+    } catch (error) {
+      setMessage(`Error: ${error.message}`);
+    }
+  };
+
+  const handleGuestAccess = () => {
+    setAccessType('guest'); 
+    setMessage('Continuing as guest...');
+    navigate('/home')
+  };
 
   return (
-    <>
     <div>
-      <nav className="navbar">Login Page</nav>
+      <h2>{isRegistering ? 'Register' : 'Login'}</h2>
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      {isRegistering ? (
+        <button onClick={handleRegister}>Register</button>
+      ) : (
+        <button onClick={handleLogin}>Login</button>
+      )}
+      <button onClick={handleGuestAccess}>Continue as Guest</button>
+      <button onClick={() => setIsRegistering(!isRegistering)}>
+        {isRegistering ? 'Back to Login' : 'Create an Account'}
+      </button>
+      <p>{message}</p>
     </div>
-    <div className="login-wrapper">
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username:</p>
-          <input type="text" onChange={e => setUsername(e.target.value)} />
-        </label>
-        <label>
-          <p>Password:</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
-    </>
-  )
+  );
 }
 
+export default LoginPage;
+
+
 LoginPage.propTypes = {
-  setToken: PropTypes.func.isRequired
+  setAccessType: PropTypes.func.isRequired
 }
