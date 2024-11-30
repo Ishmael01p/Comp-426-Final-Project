@@ -3,10 +3,11 @@
 Goal: The objective is to create a React + Vite app that can showcase a range of web development skills, structured around an open-ended final project. With an emphasis on both front and backend functionality, the project will be graded across several categories: a dynamic front end that engages users through interactivity, a backend with a RESTful CRUD API that manages at least two resources, integration of a third-party API, and session-persistent state for user personalization. Points are also awarded for a polished user experience and the quality of a brief presentation video, which should highlight the project’s features and design.
 ### Running React + Authentication with Node JS :
     Run the following command in terminal:
-    - "cd react-app" # if needed
+    - "cd server" # if needed
     - "npm install" # install dependencies
-    - "node server.js"
+    - "node server.mjs"
     Run the following command in a seperate terminal simultaneously:
+    - "cd react-app"
     - "npm run dev"
 ### Potential Project Idea 
 - Job Search Site
