@@ -50,7 +50,6 @@ app.use(cors());
                     return res.status(401).send('Invalid password');
                 }
                 res.send('Login successful');
-                res.json({ success: true, redirectUrl: '/homepage' });
             } catch (err) {
                 console.error('Error logging in:', err.message);
                 res.status(500).send('Error logging in');
