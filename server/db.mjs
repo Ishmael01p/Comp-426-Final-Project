@@ -1,20 +1,18 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-dotenv.config();
+// dotenv.config();
+
+const uri1='mongodb+srv://Ishmaelp:IxAuPicfteLbibS7@cluster0.wq8uf.mongodb.net/User_JB?retryWrites=true&w=majority'
+const uri2='mongodb+srv://Ishmaelp:IxAuPicfteLbibS7@cluster0.wq8uf.mongodb.net/Password_JB?retryWrites=true&w=majority'
+
 
 const connectDB = async () => {
   try {
-    const usernameDB = mongoose.createConnection(process.env.DB1_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const usernameDB = mongoose.createConnection(uri1);
     console.log('Connected to usernameDB');
 
-    const passwordDB = mongoose.createConnection(process.env.DB2_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const passwordDB = mongoose.createConnection(uri2);
     console.log('Connected to passwordDB');
 
     return { usernameDB, passwordDB }; // Return both connections for use in models
