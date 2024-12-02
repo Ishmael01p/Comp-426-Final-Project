@@ -52,7 +52,7 @@ const JobSearch = () => {
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '8029f2bb09msha2b39da22aa0d64p1a9894jsn1f655c05d860', 
+        'x-rapidapi-key': '3cdd047fdcmsh071e9f940732f95p159a72jsn10ddacf1a577', 
         'x-rapidapi-host': 'linkedin-data-api.p.rapidapi.com',
       },
     };
