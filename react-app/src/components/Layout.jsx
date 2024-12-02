@@ -1,7 +1,8 @@
-import React from "react";
+// import React from "react"; 
 import { useNavigate } from "react-router-dom";
 import "../styles/app.css";
 
+// eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const Layout = ({ children }) => {
           className="navbar-link"
           onClick={() => navigate('/saved-jobs')}
           style={{
-            textDecoration: "underline",
+            // textDecoration: "underline",
             cursor: "pointer",
           }}
         >

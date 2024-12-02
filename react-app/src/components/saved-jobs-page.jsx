@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Layout from './Layout'; 
 import JobPost from './job'; 
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom'; 
 
 const SavedJobsPage = () => {
   const [jobs, setJobs] = useState([]); // You'll have saved jobs here
