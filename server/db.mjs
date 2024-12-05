@@ -1,18 +1,17 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-// dotenv.config();
+dotenv.config({path: '../.env' });
 
-const uri1='mongodb+srv://Ishmaelp:IxAuPicfteLbibS7@cluster0.wq8uf.mongodb.net/User_JB?retryWrites=true&w=majority'
-const uri2='mongodb+srv://Ishmaelp:IxAuPicfteLbibS7@cluster0.wq8uf.mongodb.net/Password_JB?retryWrites=true&w=majority'
-
+const mongoURI1 = process.env.DB1_URI
+const mongoURI2 = process.env.DB2_URI
 
 const connectDB = async () => {
   try {
-    const usernameDB = mongoose.createConnection(uri1);
+    const usernameDB = mongoose.createConnection(mongoURI1);
     console.log('Connected to usernameDB');
 
-    const passwordDB = mongoose.createConnection(uri2);
+    const passwordDB = mongoose.createConnection(mongoURI2);
     console.log('Connected to passwordDB');
 
     return { usernameDB, passwordDB }; 
