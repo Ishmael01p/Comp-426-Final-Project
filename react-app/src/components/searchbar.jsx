@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import JobPost from './job';
+import dotenv from 'dotenv';
 
-// const myAPI = import.meta.env.VITE_API_KEY
+dotenv.config({path: '../../../.env' });
+const VITE_API_KEY = import.meta.env.VITE_API_KEY
 
 const JobSearch = () => {
   const [jobs, setJobs] = useState([]);
@@ -52,7 +54,7 @@ const JobSearch = () => {
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '3cdd047fdcmsh071e9f940732f95p159a72jsn10ddacf1a577', 
+        'x-rapidapi-key': VITE_API_KEY, 
         'x-rapidapi-host': 'linkedin-data-api.p.rapidapi.com',
       },
     };
