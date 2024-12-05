@@ -25,6 +25,8 @@ function LoginPage({ setAccessType }) {
       setMessage("Login successful!");
       setAccessType("user");
       navigate("/home");
+      localStorage.setItem('username', username);
+      console.log(username)
     } catch (error) {
       setMessage(`Error: ${error.message}`);
     }

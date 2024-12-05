@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import JobPost from './job';
-import dotenv from 'dotenv';
-
-dotenv.config({path: '../../../.env' });
 const VITE_API_KEY = import.meta.env.VITE_API_KEY
 
 const JobSearch = () => {
@@ -208,6 +205,7 @@ const JobSearch = () => {
                 company={job.company || { name: 'Unknown Company' }}
                 location={job.location || 'location Not Specified'}
                 url={job.url}
+                username={localStorage.getItem('username')}
               />
             ))}
           </div>

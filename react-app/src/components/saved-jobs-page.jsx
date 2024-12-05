@@ -1,118 +1,86 @@
-import React, { useState } from 'react';
-import Layout from './Layout'; 
-import JobPost from './job'; 
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Layout from './Layout';
+import JobPost from './job';
 
 const SavedJobsPage = () => {
-  const [jobs, setJobs] = useState([]); // You'll have saved jobs here
+  const [jobs, setJobs] = useState([]); // Stores saved jobs
   const [loading, setLoading] = useState(false);
-  const [filters, setFilters] = useState({
-    datePosted: 'anyTime',
-    salary: '',
-    jobType: '',
-    experienceLevel: '',
-    onsiteRemote: '',
-  });
+  const [errorMessage, setErrorMessage] = useState(null); // For handling errors
 
-  // Reuse the same filtering logic as in JobSearch
-  const handleSearch = async (e) => {
-    e.preventDefault();
+  const fetchSavedJobs = async () => {
+    const username = localStorage.getItem('username'); // Check if the user is signed in
+
+    if (!username) {
+      setErrorMessage('You must be signed in to view saved jobs.');
+      return;
+    }
+
     setLoading(true);
+    setErrorMessage(null);
 
-    // Here you would implement the logic for getting saved jobs.
-    // For rn, we simulate it by setting jobs manually or fetching them from localStorage
-    const savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || []; 
-    setJobs(savedJobs); // Assuming saved jobs are stored in localStorage or similar
+    try {
+      const response = await fetch('http://localhost:8080/get-saved', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+      });
 
-    setLoading(false);
+      if (!response.ok) {
+        const message = await response.text();
+        setErrorMessage(message);
+        return;
+      }
+
+      const savedJobs = await response.json();
+      const jobsWithSavedState = savedJobs.map((job) => ({
+        ...job,
+        isSaved: true, // Initially mark as saved
+      }));
+      setJobs(jobsWithSavedState); // Save jobs to state
+    } catch (error) {
+      console.error('Error fetching saved jobs:', error);
+      setErrorMessage('Failed to fetch saved jobs. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Layout>
-      <div style={{ display: 'flex', marginTop: '2.75rem' }}>
-        {/* Sidebar for filters */}
-        <aside
+      <div style={{ display: 'flex', marginTop: '2.75rem', textAlign: 'center' }}>
+        <section
           style={{
-            width: '25%',
-            padding: '0',
-            background: '#f4f4f4',
-            borderRight: '1px solid gray',
-            position: 'sticky',
-            top: '4rem',
-            height: '100vh',
+            width: '75%',
+            padding: '1rem',
           }}
         >
-          <form onSubmit={handleSearch}>
-            <h3 style={{ margin: '0', padding: '1rem', background: 'gray', color: 'white' }}>
-              Search Saved Jobs
-            </h3>
-            {/* Filters */}
-            {[
-              { key: 'datePosted', label: 'Date Posted', options: ['anyTime', 'pastMonth', 'pastWeek', 'past24Hours'] },
-              { key: 'salary', label: 'Salary', options: ['40k+', '60k+', '80k+', '100k+', '120k+', '140k+', '160k+', '180k+', '200k+'] },
-              { key: 'jobType', label: 'Job Type', options: ['fullTime', 'partTime', 'contract', 'internship'] },
-              { key: 'experienceLevel', label: 'Experience Level', options: ['internship', 'entryLevel', 'associate', 'midSeniorLevel', 'director', 'executive'] },
-              { key: 'onsiteRemote', label: 'Onsite/Remote', options: ['onSite', 'remote', 'hybrid'] },
-            ].map(({ key, label, options }) => (
-              <div key={key} style={{ borderBottom: '1px solid #ccc' }}>
-                <div
-                  style={{
-                    cursor: 'pointer',
-                    border: '1px solid #ccc',
-                    padding: '0.5rem',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    background: '#fff',
-                  }}
-                >
-                  {label} <span>&#9660;</span>
-                </div>
-                <div style={{ border: '1px solid #ccc', padding: '0.5rem', background: '#f9f9f9' }}>
-                  {options.map((option) => (
-                    <div key={option}>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={filters[key] === option}
-                          onChange={() => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              [key]: prev[key] === option ? '' : option,
-                            }));
-                          }}
-                        />
-                        {option}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-            {/* Submit Button */}
-            <button
-              type="submit"
-              style={{
-                width: '40%',
-                padding: '.75rem',
-                background: 'gray',
-                color: 'white',
-                border: 'none',
-                cursor: 'pointer',
-                margin: 10,
-              }}
-            >
-              Search
-            </button>
-          </form>
-        </aside>
-
-        {/* Main Content Area */}
-        <section style={{ width: '75%', padding: '1rem' }}>
           <h2>Saved Jobs</h2>
-          {loading ? (
-            <p>Loading...</p>
-          ) : jobs.length > 0 ? (
+          {/* Button to Fetch Saved Jobs */}
+          <button
+            onClick={fetchSavedJobs}
+            style={{
+              padding: '0.5rem 1rem',
+              margin: '1rem 0',
+              cursor: 'pointer',
+              backgroundColor: '#007BFF',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '5px',
+            }}
+          >
+            Load Saved Jobs
+          </button>
+
+          {/* Display Error Message */}
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+
+          {/* Loading Indicator */}
+          {loading && <p>Loading...</p>}
+
+          {/* Render Jobs List */}
+          {!loading && jobs.length > 0 && (
             <div
               style={{
                 display: 'grid',
@@ -120,19 +88,21 @@ const SavedJobsPage = () => {
                 gap: '1rem',
               }}
             >
-              {jobs.map((job, index) => (
+              {jobs.map((job) => (
                 <JobPost
-                  key={index}
+                  key={job._id}
                   title={job.title || 'No Title'}
                   company={job.company || { name: 'Unknown Company' }}
-                  location={job.location || 'location Not Specified'}
+                  location={job.location || 'Location Not Specified'}
                   url={job.url}
+                  isSaved={job.isSaved}
+                  username={localStorage.getItem('username')}
                 />
               ))}
             </div>
-          ) : (
-            <p>No saved jobs found.</p>
           )}
+
+          {!loading && jobs.length === 0 && !errorMessage && <p>No saved jobs found.</p>}
         </section>
       </div>
     </Layout>
@@ -140,4 +110,7 @@ const SavedJobsPage = () => {
 };
 
 export default SavedJobsPage;
+
+
+
 

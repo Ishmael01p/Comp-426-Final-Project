@@ -1,0 +1,37 @@
+.star-button {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 30px; /* Keep current size */
+    height: 30px; /* Keep current size */
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+    );
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s, background-color 0.3s;
+    background-color: darkgray; /* Default state - not saved */
+  }
+  
+  .star-button.saved {
+    background-color: goldenrod; /* Saved state - yellow */
+  }
+  
+  .star-button:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+  }
+  
+  .star-button:active {
+    transform: scale(0.9); /* Slightly shrink on click */
+  }
+  

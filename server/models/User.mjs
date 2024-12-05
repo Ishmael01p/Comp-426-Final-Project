@@ -17,4 +17,4 @@ const UserSchema = new mongoose.Schema({
   savedJobs: [JobSchema]
 });
 
-export default (connection) => connection.model("User", UserSchema);
+export default (connection) => connection.model('User', UserSchema);
