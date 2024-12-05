@@ -1,15 +1,13 @@
-// import React from "react"; 
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/app.css";
 
-// eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
   const navigate = useNavigate();
 
   return (
     <>
       <nav className="navbar">
-        {/* Make Job Board clickable and route to /home */}
         <h3 
           onClick={() => navigate('/home')}
           style={{
@@ -23,16 +21,17 @@ const Layout = ({ children }) => {
           className="navbar-link"
           onClick={() => navigate('/saved-jobs')}
           style={{
-            // textDecoration: "underline",
+            textDecoration: "underline",
             cursor: "pointer",
           }}
         >
           Saved Jobs
         </span>
       </nav>
-      <div>{children}</div>
+      <div className="content">{children}</div>
     </>
   );
 };
 
 export default Layout;
+
