@@ -1,5 +1,7 @@
 # Comp-423-Final-Project
 ### Jayson Mbugua, Kyran Taylor, Ishmael Percy
+### Youtube Link
+https://www.youtube.com/watch?v=qLnEJS995WQ
 ### Project Summary 
 We developed a LinkedIn Job Board Wrapper using RapidAPI's Real-Time LinkedIn Scraper API alongside React, Express.js, Node.js, and MongoDB. This project allows users to search for job postings based on keywords, location (GeoID), salary, posting date, and other filters. To implement session-persistent state, we designed two MongoDB databases: one to store user information and another for securely storing passwords, with a field linking passwords to their respective user IDs.
 
