@@ -6,13 +6,14 @@ We developed a LinkedIn Job Board Wrapper using RapidAPI's Real-Time LinkedIn Sc
 Registered users gain special access to save jobs, which are stored in a personalized "saved jobs" array within the database. Users can easily add or remove jobs from their saved list and access them later via the "Saved Jobs" page, where they can load and manage their selections. These features are not availible to users who select countinue as a guess which essential creates a user who is not in the database and does have the abiliy to save jobs. 
 
 In addition to using the RapidAPI API, we implemented several RESTful APIs: five for user registration and login functionality, two for managing saved jobs (adding and removing), and one for retrieving saved jobs. If we had more time, the next that should be implemented in some security around around encrptying passwords potential with a JWT token route in order to prevent data leaks. 
-### Running React + Authentication with Node JS :
+### Running React + Vite Frontend with Node JS + Express JS Backend:
     Run the following command in terminal:
     - "cd server" # if needed
     - "npm install" # install dependencies
     - "node server.mjs"
     Run the following command in a seperate terminal simultaneously:
     - "cd react-app"
+    - "npm install" # install dependencies
     - "npm run dev"
 ### API
 - Job Post API:
