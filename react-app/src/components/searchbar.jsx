@@ -16,7 +16,7 @@ const JobSearch = () => {
   });
 
   const [filters, setFilters] = useState({
-    datePosted: 'anyTime',
+    datePosted: '',
     salary: '',
     jobType: '',
     experienceLevel: '',
