@@ -10,7 +10,7 @@ const SavedJobsPage = () => {
   const fetchSavedJobs = async () => {
     const username = localStorage.getItem('username'); // Check if the user is signed in
 
-    if (!username) {
+    if (username === 'no-user') {
       setErrorMessage('You must be signed in to view saved jobs.');
       return;
     }

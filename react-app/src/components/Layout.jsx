@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
             cursor: 'pointer',
           }}
         >
-          {username ? 'Log Out' : 'Register/Sign In'}
+          {username === 'no-user' ? 'Register/Sign In': 'Log Out' }
         </h3>
 
 

@@ -6,10 +6,6 @@ const JobPost = ({ title, company, location, url, username }) => {
   const [isSaved, setIsSaved] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  if (!username) {
-    setErrorMessage('You are not registered. Please register first.'); // Set error message
-    return;
-  }
 
   const toggleSaveJob = async () => {
     const job = { title, company, location, url };

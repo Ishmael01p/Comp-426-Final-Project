@@ -55,6 +55,7 @@ function LoginPage({ setAccessType }) {
     setAccessType("guest");
     setMessage("Continuing as guest...");
     navigate("/home");
+    localStorage.setItem('username', 'no-user');
   };
 
   return (
