@@ -1,6 +1,11 @@
 # Comp-423-Final-Project
 ### Jayson Mbugua, Kyran Taylor, Ishmael Percy
-Goal: The objective is to create a React + Vite app that can showcase a range of web development skills, structured around an open-ended final project. With an emphasis on both front and backend functionality, the project will be graded across several categories: a dynamic front end that engages users through interactivity, a backend with a RESTful CRUD API that manages at least two resources, integration of a third-party API, and session-persistent state for user personalization. Points are also awarded for a polished user experience and the quality of a brief presentation video, which should highlight the project’s features and design.
+### Project Summary 
+We developed a LinkedIn Job Board Wrapper using RapidAPI's Real-Time LinkedIn Scraper API alongside React, Express.js, Node.js, and MongoDB. This project allows users to search for job postings based on keywords, location (GeoID), salary, posting date, and other filters. To implement session-persistent state, we designed two MongoDB databases: one to store user information and another for securely storing passwords, with a field linking passwords to their respective user IDs.
+
+Registered users gain special access to save jobs, which are stored in a personalized "saved jobs" array within the database. Users can easily add or remove jobs from their saved list and access them later via the "Saved Jobs" page, where they can load and manage their selections. These features are not availible to users who select countinue as a guess which essential creates a user who is not in the database and does have the abiliy to save jobs. 
+
+In addition to using the RapidAPI API, we implemented several RESTful APIs: five for user registration and login functionality, two for managing saved jobs (adding and removing), and one for retrieving saved jobs. If we had more time, the next that should be implemented in some security around around encrptying passwords potential with a JWT token route in order to prevent data leaks. 
 ### Running React + Authentication with Node JS :
     Run the following command in terminal:
     - "cd server" # if needed
@@ -9,10 +14,7 @@ Goal: The objective is to create a React + Vite app that can showcase a range of
     Run the following command in a seperate terminal simultaneously:
     - "cd react-app"
     - "npm run dev"
-### Potential Project Idea 
-- Job Search Site
-    - Using an api to pull job posting that match the preferences of the user
-### APIs
+### API
 - Job Post API:
     - https://rapidapi.com/rockapis-rockapis-default/api/linkedin-data-api/playground/apiendpoint_d6ee76ac-f060-468e-9e18-685375ea2004 
 ### FrameWorks and Libraries Used
@@ -28,4 +30,3 @@ Goal: The objective is to create a React + Vite app that can showcase a range of
     - https://www.npmjs.com/package/cors
 - express (node.js framework)
     - https://expressjs.com/
-  
